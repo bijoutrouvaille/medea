@@ -1,0 +1,34 @@
+<html>
+<head>
+  <title>json beautifier</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json5/0.3.0/json5.min.js" integrity="sha256-4PGdv6hCb39ZQELTcL47+GesUYXF9frCRO2uppUWPuo=" crossorigin="anonymous"></script>
+  <style>
+  
+    #json {
+      width: 80%;
+      padding: 1em;
+      min-height: 75%;
+      margin: 1em auto;
+      font-size: 14px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <textarea id="json"></textarea>
+  <pre id='j'></pre>
+  <script>
+    var params = (location.href.split('?')[1] || '').split('#')[0]
+      .split('&').filter(x=>x)
+      .map(p=>({val:p.split('=')[1], name: p.split('=')[0]}));
+    
+    var json = decodeURIComponent(params.find(x=>x.name=='json').val||'')
+    var pretty = JSON.stringify(JSON5.parse(json), null,2)
+    var el = document.getElementById('json')
+    el.value = pretty
+    el.focus()
+    el.select()
+  </script>
+</body>
+</html>

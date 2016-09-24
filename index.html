@@ -23,7 +23,10 @@
       .split('&').filter(x=>x)
       .map(p=>({val:p.split('=')[1], name: p.split('=')[0]}));
     
-    var json = decodeURIComponent(params.find(x=>x.name=='json').val||'')
+    var param = params.find(x=>x.name=='json')
+    
+    var val = param ? param.val : location.hash.slice(1)
+    var json = decodeURIComponent(val||'')
     var pretty = JSON.stringify(JSON5.parse(json), null,2)
     var el = document.getElementById('json')
     el.value = pretty
